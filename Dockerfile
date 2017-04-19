@@ -5,6 +5,7 @@ RUN mkdir -m 0750 /root/.android
 ADD files/insecure_shared_adbkey /root/.android/adbkey
 ADD files/insecure_shared_adbkey.pub /root/.android/adbkey.pub
 ADD files/update-platform-tools.sh /usr/local/bin/update-platform-tools.sh
+ADD scripts/build-opencv.sh /root
 
 RUN set -xeo pipefail && \
     apk update && \
@@ -33,6 +34,9 @@ RUN apk add --no-cache python3 && \
     rm -r /root/.cache
 
 RUN apk add --no-cache py3-lxml 
+
+RUN /root/build-opencv.sh
+RUN ln /dev/null /dev/raw1394
 
 ONBUILD RUN mkdir -p /code
 ONBUILD WORKDIR /code
