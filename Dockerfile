@@ -29,11 +29,11 @@ ENV PATH $PATH:/opt/platform-tools
 # Install python3 with lxml
 RUN apk add --no-cache python3 && \
     python3 -m ensurepip && \
+    apk add --no-cache py3-lxml && \
+    apk add --no-cache py3-paramiko && \
     rm -r /usr/lib/python*/ensurepip && \
     pip3 install --upgrade pip setuptools && \
     rm -r /root/.cache
-
-RUN apk add --no-cache py3-lxml 
 
 RUN /root/build-opencv.sh
 RUN ln /dev/null /dev/raw1394
