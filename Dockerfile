@@ -12,9 +12,9 @@ RUN set -xeo pipefail && \
     wget -O "/etc/apk/keys/sgerrand.rsa.pub" \
       "https://raw.githubusercontent.com/andyshinn/alpine-pkg-glibc/master/sgerrand.rsa.pub" && \
     wget -O "/tmp/glibc.apk" \
-      "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-2.23-r3.apk" && \
+      "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk" && \
     wget -O "/tmp/glibc-bin.apk" \
-      "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-bin-2.23-r3.apk" && \
+      "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-bin-2.25-r0.apk" && \
     apk add "/tmp/glibc.apk" "/tmp/glibc-bin.apk" && \
     rm "/etc/apk/keys/sgerrand.rsa.pub" && \
     rm "/root/.wget-hsts" && \
@@ -27,6 +27,9 @@ ENV PATH $PATH:/opt/platform-tools
 
 # Install python3 with lxml
 RUN apk add --no-cache python3 && \
+    apk add --no-cache py3-lxml && \
+    apk add --no-cache py3-paramiko && \
+    apk add --no-cache py3-pillow && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     pip3 install --upgrade pip setuptools && \
