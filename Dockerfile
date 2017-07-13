@@ -30,6 +30,7 @@ RUN apk add --no-cache python3 && \
     apk add --no-cache py3-lxml && \
     apk add --no-cache py3-paramiko && \
     apk add --no-cache py3-pillow && \
+    apk add --no-cache py3-gevent && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     pip3 install --upgrade pip setuptools && \
