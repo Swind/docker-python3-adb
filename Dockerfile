@@ -26,6 +26,11 @@ RUN set -xeo pipefail && \
 # Set up PATH
 ENV PATH $PATH:/opt/platform-tools
 
+# Install packages for cffi
+RUN apk add --no-cache libffi-dev && \
+    apk add --no-cache openssl-dev && \
+    apk add --no-cache python3-dev && \
+    apk add --no-cache musl-dev
 # Install python3 with lxml
 RUN apk add --no-cache python3 && \
     python3 -m ensurepip && \
