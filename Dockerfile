@@ -1,16 +1,4 @@
 FROM alpine:3.5
-
-#====================================
-# Install nodejs, npm, appium
-#====================================
-ARG APPIUM_VERSION=1.6.5
-ENV APPIUM_VERSION=$APPIUM_VERSIONS
-
-RUN apk update && \
-    apk add --no-cache nodejs && \
-    npm install -g appium@${APPIUM_VERSION} && \
-    apk add --no-cache openjdk8-jre
-
 #===============
 # Set JAVA_HOME
 #===============
@@ -59,6 +47,16 @@ RUN apk add --no-cache python3 && \
     pip3 install --upgrade pip setuptools && \
     rm -r /root/.cache
 
+#====================================
+# Install nodejs, npm, appium
+#====================================
+ARG APPIUM_VERSION=1.6.5
+ENV APPIUM_VERSION=$APPIUM_VERSIONS
+
+RUN apk update && \
+    apk add --no-cache openjdk8-jre && \
+    apk add --no-cache nodejs && \
+    npm install -g appium@${APPIUM_VERSION}
 #====================================
 # Install opencv
 #====================================
