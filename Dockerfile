@@ -3,8 +3,9 @@ FROM alpine:3.5
 # Set JAVA_HOME
 #===============
 
-ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk/jre/" \
-    PATH=$PATH:$JAVA_HOME/bin
+ARG  JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"
+ENV  PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin \
+     JAVA_HOME=$JAVA_HOME
 
 
 # Set up insecure default key
@@ -32,14 +33,28 @@ RUN set -xeo pipefail && \
 # Set up PATH
 ENV PATH $PATH:/opt/platform-tools
 
+
+#====================================
+# Install nodejs, npm, appium
+#====================================
+WORKDIR /
+ENV USER=root
+ARG APPIUM_VERSION=1.6.5
+ENV APPIUM_VERSION=$APPIUM_VERSIONS
+
+RUN apk update && \
+    apk add --no-cache openjdk8 && \
+    apk add --no-cache nodejs python gcc g++ make && \
+    npm install -g appium@${APPIUM_VERSION}
+
 # Install packages for cffi
 RUN apk add --no-cache libffi-dev && \
     apk add --no-cache openssl-dev && \
     apk add --no-cache python3-dev && \
     apk add --no-cache musl-dev
+
 # Install python3 with lxml
-RUN apk add --no-cache python3 && \
-    python3 -m ensurepip && \
+RUN python3 -m ensurepip && \
     apk add --no-cache py3-lxml && \
     apk add --no-cache py3-paramiko && \
     apk add --no-cache py3-gevent && \
@@ -47,16 +62,6 @@ RUN apk add --no-cache python3 && \
     pip3 install --upgrade pip setuptools && \
     rm -r /root/.cache
 
-#====================================
-# Install nodejs, npm, appium
-#====================================
-ARG APPIUM_VERSION=1.6.5
-ENV APPIUM_VERSION=$APPIUM_VERSIONS
-
-RUN apk update && \
-    apk add --no-cache openjdk8-jre && \
-    apk add --no-cache nodejs && \
-    npm install -g appium@${APPIUM_VERSION}
 #====================================
 # Install opencv
 #====================================
