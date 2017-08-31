@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 # Set up insecure default key
 RUN mkdir -m 0750 /root/.android
@@ -31,6 +31,7 @@ RUN apk add --no-cache python3 && \
     apk add --no-cache py3-paramiko && \
     apk add --no-cache py3-pillow && \
     apk add --no-cache py3-gevent && \
+    apk add --no-cache py3-numpy && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     pip3 install --upgrade pip setuptools && \
