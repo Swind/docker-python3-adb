@@ -44,7 +44,7 @@ ENV APPIUM_VERSION=$APPIUM_VERSIONS
 
 RUN apk update && \
     apk add --no-cache openjdk8 && \
-    apk add --no-cache nodejs python gcc g++ make && \
+    apk add --no-cache nodejs python3 gcc g++ make && \
     npm install -g appium@${APPIUM_VERSION}
 
 # Install packages for cffi
