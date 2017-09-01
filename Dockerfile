@@ -38,7 +38,7 @@ ENV ANROID_HOME='/opt/platform-tools'
 # Install nodejs, npm, appium
 #====================================
 WORKDIR /
-ENV USER=root
+#ENV USER=root
 ARG APPIUM_VERSION=1.6.5
 ENV APPIUM_VERSION=$APPIUM_VERSIONS
 
