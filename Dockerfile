@@ -32,7 +32,7 @@ RUN set -xeo pipefail && \
 
 # Set up PATH
 ENV PATH $PATH:/opt/platform-tools
-ENV ANROID_HOME='/opt/platform-tools'
+ENV ANDROID_HOME '/opt/platform-tools'
 
 #====================================
 # Install nodejs, npm, appium
