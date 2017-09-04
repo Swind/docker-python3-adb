@@ -32,6 +32,8 @@ RUN apk add --no-cache python3 && \
     apk add --no-cache py3-pillow && \
     apk add --no-cache py3-gevent && \
     apk add --no-cache py3-numpy && \
+    apk add --no-cache py3-pillow && \
+    apk add --no-cache ffmpeg && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     pip3 install --upgrade pip setuptools && \
