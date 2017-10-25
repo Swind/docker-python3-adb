@@ -38,13 +38,3 @@ RUN apk add --no-cache python3 && \
     rm -r /root/.cache
 
 RUN apk add --no-cache py3-lxml 
-
-ONBUILD RUN mkdir -p /code
-ONBUILD WORKDIR /code
-
-ONBUILD COPY requirements.txt /code
-ONBUILD RUN pip3 install --no-cache-dir -r requirements.txt
-
-# Hook up tini as the default init system for proper signal handling
-ENTRYPOINT ["/sbin/tini", "--"]
-
