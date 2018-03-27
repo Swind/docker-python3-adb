@@ -40,12 +40,12 @@ ENV ANDROID_HOME '/opt/platform-tools'
 WORKDIR /
 #ENV USER=root
 ARG APPIUM_VERSION=1.6.5
-ENV APPIUM_VERSION=$APPIUM_VERSIONS
+ENV APPIUM_VERSION=$APPIUM_VERSION
 
 RUN apk update && \
     apk add --no-cache openjdk8 && \
     apk add --no-cache nodejs python3 gcc g++ make && \
-    npm install -g appium@1.6.5
+    npm install -g appium@${APPIUM_VERSION}
 
 # Install packages for cffi
 RUN apk add --no-cache libffi-dev && \
