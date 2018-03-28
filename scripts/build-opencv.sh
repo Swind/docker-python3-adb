@@ -43,8 +43,8 @@ apk add --no-cache \
   python3-dev \
   ffmpeg-libs \
   ffmpeg-dev \
-  ffmpeg
-
+  ffmpeg \
+  linux-headers
 # fix for numpy compilation
 ln -s /usr/include/locale.h /usr/include/xlocale.h
 
