@@ -51,6 +51,7 @@ RUN apk update && \
 RUN apk add --no-cache libffi-dev && \
     apk add --no-cache openssl-dev && \
     apk add --no-cache python3-dev && \
+    apk add --no-cache jpeg-dev && \
     apk add --no-cache musl-dev
 
 # Install python3 with lxml
