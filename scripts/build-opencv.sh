@@ -27,7 +27,6 @@ apk add --no-cache --virtual .build-deps \
   wget \
   unzip
 
-echo 'Install opencv dependencies'
 apk add --no-cache \
   jasper-dev \
   libavc1394-dev  \
@@ -37,14 +36,15 @@ apk add --no-cache \
   libtbb \
   libtbb-dev \
   libwebp-dev \
-  linux-headers \
   openblas-dev \
   tiff-dev \
   python3-dev \
   ffmpeg-libs \
   ffmpeg-dev \
-  ffmpeg \
-  linux-headers
+  ffmpeg
+
+apk add --update --no-cache linux-headers
+apk add --update --no-cache libsdtc++
 # fix for numpy compilation
 ln -s /usr/include/locale.h /usr/include/xlocale.h
 
