@@ -30,9 +30,12 @@ RUN set -xeo pipefail && \
     rm -r /var/cache/apk/APKINDEX.* && \
     /usr/local/bin/update-platform-tools.sh
 
+# create fake ANDROIRD_HOME folder to pass appium path examination
+RUN mkdir -p /opt/build-tools
+
 # Set up PATH
-ENV PATH $PATH:/opt/platform-tools
-ENV ANDROID_HOME '/opt/platform-tools'
+ENV PATH $PATH:/opt/platform-tools:/opt/build-tools
+ENV ANDROID_HOME '/opt/'
 
 #====================================
 # Install nodejs, npm, appium
