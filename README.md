@@ -1,4 +1,13 @@
-# Python3 + adb
+
+# Python3 + adb 
+
+|branch|status|
+|------|------|
+|master| [![](https://images.microbadger.com/badges/image/swind/docker-python3-adb.svg)](https://microbadger.com/images/swind/docker-python3-adb "Get your own image badge on microbadger.com")|
+|opencv| [![](https://images.microbadger.com/badges/image/swind/docker-python3-adb:opencv.svg)](https://microbadger.com/images/swind/docker-python3-adb:opencv "Get your own image badge on microbadger.com")|
+|python-opencv-appium| [![](https://images.microbadger.com/badges/image/swind/docker-python3-adb:opencv-appium.svg)](https://microbadger.com/images/swind/docker-python3-adb:opencv-appium "Get your own image badge on microbadger.com")|
+|clean| [![](https://images.microbadger.com/badges/image/swind/docker-python3-adb:clean.svg)](https://microbadger.com/images/swind/docker-python3-adb:clean "Get your own image badge on microbadger.com")|
+|ffmpeg| [![](https://images.microbadger.com/badges/image/swind/docker-python3-adb:ffmpeg.svg)](https://microbadger.com/images/swind/docker-python3-adb:ffmpeg "Get your own image badge on microbadger.com")|
 
 這個 Image 使用 Alpine Linux Image 安裝了 Python3 與 ADB。整體大小約 9x MB，用於執行 Python3 撰寫的 Android 測試。
 
