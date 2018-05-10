@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.7
 
 # Set up insecure default key
 RUN mkdir -m 0750 /root/.android
@@ -7,6 +7,13 @@ ADD files/insecure_shared_adbkey.pub /root/.android/adbkey.pub
 ADD files/update-platform-tools.sh /usr/local/bin/update-platform-tools.sh
 ADD scripts/build-opencv.sh /root
 
+RUN echo '> Add edge repository and update apk' && \
+    echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
+    echo http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
+    apk update && \
+    apk upgrade
+
+# Install android platform tools 
 RUN set -xeo pipefail && \
     apk update && \
     apk add wget ca-certificates tini && \
@@ -31,12 +38,14 @@ RUN apk add --no-cache libffi-dev && \
     apk add --no-cache openssl-dev && \
     apk add --no-cache python3-dev && \
     apk add --no-cache musl-dev
+
 # Install python3 with lxml
 RUN apk add --no-cache python3 && \
     python3 -m ensurepip && \
     apk add --no-cache py3-lxml && \
     apk add --no-cache py3-paramiko && \
     apk add --no-cache py3-gevent && \
+    apk add --no-cache py3-scipy && \
     rm -r /usr/lib/python*/ensurepip && \
     pip3 install --upgrade pip setuptools && \
     rm -r /root/.cache
@@ -46,9 +55,6 @@ RUN ln /dev/null /dev/raw1394
 
 ONBUILD RUN mkdir -p /code
 ONBUILD WORKDIR /code
-
-ONBUILD COPY requirements.txt /code
-ONBUILD RUN pip install --no-cache-dir -r requirements.txt
 
 # Hook up tini as the default init system for proper signal handling
 ENTRYPOINT ["/sbin/tini", "--"]

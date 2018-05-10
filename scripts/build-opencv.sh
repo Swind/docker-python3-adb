@@ -11,12 +11,6 @@ PYBIN=/usr/bin/python3
 echo 'PWD  : '$PWD
 echo 'PYBIN: '$PYBIN
 
-echo '> Add edge repository and update apk'
-echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
-echo http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
-apk update
-apk upgrade
-
 echo 'Install build dependencies'
 apk add --no-cache --virtual .build-deps \
   build-base \
@@ -74,7 +68,7 @@ rm 3.2.0.zip
 #
 ####################################################################################
 echo 'Begin build opencv...'
-pip3 install numpy==1.12.0 
+pip3 install numpy
 ln -s /usr/bin/python3 /usr/bin/python
 
 # Begin build
