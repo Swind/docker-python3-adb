@@ -51,16 +51,16 @@ ln -s /usr/include/locale.h /usr/include/xlocale.h
 #echo 'Download opencv ...'
 mkdir -p /opencv
 cd /opencv
-wget https://github.com/opencv/opencv/archive/3.2.0.zip
-unzip 3.2.0.zip
-mv opencv-3.2.0 opencv
-rm 3.2.0.zip
+wget https://github.com/opencv/opencv/archive/3.4.1.zip
+unzip 3.4.1.zip
+mv opencv-3.4.1 opencv
+rm 3.4.1.zip
 
 #echo 'Download opencv contrib...'
-wget https://github.com/opencv/opencv_contrib/archive/3.2.0.zip
-unzip 3.2.0.zip
-mv opencv_contrib-3.2.0 opencv_contrib
-rm 3.2.0.zip
+wget https://github.com/opencv/opencv_contrib/archive/3.4.1.zip
+unzip 3.4.1.zip
+mv opencv_contrib-3.4.1 opencv_contrib
+rm 3.4.1.zip
 
 #####################################################################################
 #
@@ -81,7 +81,7 @@ cmake -H"." -B"build" -DCMAKE_BUILD_TYPE=Release -DBUILD_opencv_python2=OFF -DBU
   -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF -DWITH_IPP=OFF \
   -DPYTHON3INTERP_FOUND=ON -DPYTHON3LIBS_FOUND=ON \
   -DPYTHON3_EXECUTABLE=$PYBIN \
-  -DPYTHON3_VERSION_STRING=$($PYBIN -c "from platform import python_version; print python_version()") \
+  -DPYTHON3_VERSION_STRING=$($PYBIN -c "from platform import python_version; print(python_version())") \
   -DPYTHON3_INCLUDE_PATH=$($PYBIN -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
   -DPYTHON3_PACKAGES_PATH=$($PYBIN -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
   -DPYTHON3_NUMPY_INCLUDE_DIRS=$($PYBIN -c "import os; os.environ['DISTUTILS_USE_SDK']='1'; import numpy.distutils; print(os.pathsep.join(numpy.distutils.misc_util.get_numpy_include_dirs()))") \
@@ -95,7 +95,7 @@ echo 'Build for Py3'
 cd ..
 
 #echo 'Copying *.so for Py3'
-cp opencv/build/lib/python3/cv2.cpython-35m-x86_64-linux-gnu.so /usr/lib/python3.5/site-packages/cv2.so
+cp opencv/build/lib/python3/cv2.cpython-36m-x86_64-linux-gnu.so /usr/lib/python3.6/site-packages/cv2.so
 
 # Cleanup
 #echo 'Cleanup'
