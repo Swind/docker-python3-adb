@@ -62,6 +62,7 @@ RUN python3 -m ensurepip && \
     apk add --no-cache py3-lxml && \
     apk add --no-cache py3-paramiko && \
     apk add --no-cache py3-gevent && \
+    apk add --no-cache ffmpeg && \
     rm -r /usr/lib/python*/ensurepip && \
     pip3 install --upgrade pip setuptools && \
     rm -r /root/.cache
