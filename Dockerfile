@@ -57,6 +57,11 @@ RUN apk add --no-cache libffi-dev && \
     apk add --no-cache jpeg-dev && \
     apk add --no-cache musl-dev
 
+
+# Get ffmpeg source
+
+RUN apk add --no-cache ffmpeg-libs libass libva-dev libvpx x264-dev x265-dev
+
 # Install python3 with lxml
 RUN python3 -m ensurepip && \
     apk add --no-cache py3-lxml && \
