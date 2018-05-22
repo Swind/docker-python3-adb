@@ -47,7 +47,7 @@ ENV APPIUM_VERSION=$APPIUM_VERSION
 
 RUN apk update && \
     apk add --no-cache openjdk8 && \
-    apk add --no-cache nodejs python3 gcc g++ make && \
+    apk add --no-cache nodejs python3 gcc g++ make libstdc++ && \
     npm install -g appium@${APPIUM_VERSION}
 
 # Install packages for cffi
@@ -59,7 +59,7 @@ RUN apk add --no-cache libffi-dev && \
 
 
 # Get ffmpeg source dependency
-RUN apk add --no-cache ffmpeg-libs libstdc++ libass libva-dev libvpx x264-dev x265-dev
+RUN apk add --no-cache ffmpeg-libs libass libva-dev libvpx x264-dev x265-dev
 
 # Install python3 with lxml
 RUN python3 -m ensurepip && \
