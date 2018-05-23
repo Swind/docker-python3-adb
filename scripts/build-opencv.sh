@@ -27,6 +27,9 @@ apk add --no-cache --virtual .build-deps \
   wget \
   unzip
 
+# Get ffmpeg source dependency
+apk add --update --no-cache libass libva-dev libvpx x264-dev x265-dev libsdtc++
+
 apk add --no-cache \
   jasper-dev \
   libavc1394-dev  \
