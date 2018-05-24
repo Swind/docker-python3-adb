@@ -27,16 +27,21 @@ apk add --no-cache --virtual .build-deps \
   wget \
   unzip
 
-# Get ffmpeg source dependency
+# Get ffmpeg & source dependency
 apk add --update --no-cache \
-   libstdc++ && \
-   libass && \
-   libva-dev && \
-   libvpx && \
-   x264-dev && \
-   x265-dev
+   libstdc++ \
+   libass-dev \
+   libva \
+   libva-dev \
+   libvpx \
+   x264-dev \
+   x265-dev \
+   ffmpeg-libs \
+   ffmpeg-dev \
+   ffmpeg
 
 apk add --no-cache \
+  linux-headers
   jasper-dev \
   libavc1394-dev  \
   libdc1394-dev \
@@ -48,11 +53,7 @@ apk add --no-cache \
   openblas-dev \
   tiff-dev \
   python3-dev \
-  ffmpeg-libs \
-  ffmpeg-dev \
-  ffmpeg
 
-apk add --update --no-cache linux-headers
 # fix for numpy compilation
 ln -s /usr/include/locale.h /usr/include/xlocale.h
 
