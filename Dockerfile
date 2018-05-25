@@ -71,6 +71,10 @@ RUN python3 -m ensurepip && \
     pip3 install --upgrade pip setuptools && \
     rm -r /root/.cache
 
+# Install ffmpeg
+RUN apk add --no-cache --update \
+   ffmpeg-libs \
+   ffmpeg
 #====================================
 # Install opencv
 #====================================

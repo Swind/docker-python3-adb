@@ -7,15 +7,13 @@ set +e
 #
 ####################################################################################
 
-apk add --no-cache --update \
-  ffmpeg-libs \
-  ffmpeg
-
 echo '> Add edge repository and update apk'
 echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
 echo http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
-#apk update
-#apk upgrade
+apk update
+# fix apk-tools is old
+apk add--upgrade apk-tools@edge
+apk upgrade
 
 echo 'Install build dependencies'
 apk add --no-cache --virtual .build-deps \
@@ -39,8 +37,8 @@ apk add --update --no-cache \
   libtbb-dev \
   libwebp-dev \
   openblas-dev \
-  tiff-dev
-
+  tiff-dev \
+  python3-dev
 # fix for numpy compilation
 ln -s /usr/include/locale.h /usr/include/xlocale.h
 
