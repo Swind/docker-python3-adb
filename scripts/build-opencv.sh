@@ -6,16 +6,16 @@ set +e
 # Build environment
 #
 ####################################################################################
-PYBIN=/usr/bin/python3
 
-echo 'PWD  : '$PWD
-echo 'PYBIN: '$PYBIN
+apk add --no-cache --update \
+  ffmpeg-libs \
+  ffmpeg
 
 echo '> Add edge repository and update apk'
 echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
 echo http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
-apk update
-apk upgrade
+#apk update
+#apk upgrade
 
 echo 'Install build dependencies'
 apk add --no-cache --virtual .build-deps \
@@ -27,21 +27,9 @@ apk add --no-cache --virtual .build-deps \
   wget \
   unzip
 
-# Get ffmpeg & source dependency
 apk add --update --no-cache \
-   libstdc++ \
-   libass-dev \
-   libva \
-   libva-dev \
-   libvpx \
-   x264-dev \
-   x265-dev \
-   ffmpeg-libs \
-   ffmpeg-dev \
-   ffmpeg
-
-apk add --no-cache \
-  linux-headers
+  linux-headers \
+  libstdc++ \
   jasper-dev \
   libavc1394-dev  \
   libdc1394-dev \
@@ -51,8 +39,7 @@ apk add --no-cache \
   libtbb-dev \
   libwebp-dev \
   openblas-dev \
-  tiff-dev \
-  python3-dev \
+  tiff-dev
 
 # fix for numpy compilation
 ln -s /usr/include/locale.h /usr/include/xlocale.h

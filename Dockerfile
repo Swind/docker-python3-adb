@@ -37,11 +37,11 @@ RUN mkdir -p /opt/build-tools
 ENV PATH $PATH:/opt/platform-tools:/opt/build-tools
 ENV ANDROID_HOME '/opt/'
 
+
 #====================================
 # Install nodejs, npm, appium
 #====================================
 WORKDIR /
-#ENV USER=root
 ARG APPIUM_VERSION=1.6.5
 ENV APPIUM_VERSION=$APPIUM_VERSION
 
@@ -50,10 +50,14 @@ RUN apk update && \
     apk add --no-cache nodejs python3 gcc g++ make && \
     npm install -g appium@${APPIUM_VERSION}
 
+# Set python path
+ENV PYBIN=/usr/bin/python3
+
+RUN echo 'PYBIN: '$PYBIN
+
 # Install packages for cffi
 RUN apk add --no-cache libffi-dev && \
     apk add --no-cache openssl-dev && \
-    apk add --no-cache python3-dev && \
     apk add --no-cache jpeg-dev && \
     apk add --no-cache musl-dev
 
