@@ -35,10 +35,14 @@ apk add --no-cache \
   openblas-dev \
   tiff-dev \
   python3-dev \
-  ffmpeg-libs \
-  ffmpeg-dev \
-  ffmpeg
 
+echo 'Install ffmpeg dependencies'
+apk add --no-cache \
+   libva \
+   v4l-utils-dev \
+   ffmpeg-libs \
+   ffmpeg-dev \
+   ffmpeg \
 # fix for numpy compilation
 ln -s /usr/include/locale.h /usr/include/xlocale.h
 
