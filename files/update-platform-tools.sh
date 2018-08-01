@@ -3,7 +3,7 @@ set -euo pipefail
 
 PLATFORM="linux"
 REPO="https://dl.google.com/android/repository/"
-REPOXML="${REPO}repository-11.xml"
+REPOXML="${REPO}repository-12.xml"
 
 fetch_repository_xml() {
   echo "Fetching ${REPOXML}" >&2
