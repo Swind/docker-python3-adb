@@ -34,7 +34,7 @@ RUN set -xeo pipefail && \
     /usr/local/bin/update-platform-tools.sh
 
 # create fake build-tools folder and aapt to pass appium path examination
-RUN mkdir -p /opt/build-tools && touch /opt/aapt
+RUN mkdir -p /opt/build-tools && touch /opt/platform-tools/aapt
 
 # Set up PATH
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
