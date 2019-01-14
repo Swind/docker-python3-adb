@@ -10,10 +10,9 @@ set +e
 echo '> Add edge repository and update apk'
 echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
 echo http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
-apk update
-# fix apk-tools is old
-apk add--upgrade apk-tools@edge
-apk upgrade
+echo http://dl-cdn.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories
+
+apk update && apk upgrade
 
 echo 'Install build dependencies'
 apk add --no-cache --virtual .build-deps \
@@ -38,9 +37,7 @@ apk add --update --no-cache \
   libwebp-dev \
   openblas-dev \
   tiff-dev \
-  python3-dev
-# fix for numpy compilation
-ln -s /usr/include/locale.h /usr/include/xlocale.h
+  "python3-dev==3.5.6-r0"
 
 #####################################################################################
 #
@@ -48,6 +45,7 @@ ln -s /usr/include/locale.h /usr/include/xlocale.h
 #
 ####################################################################################
 
+ln -s /usr/bin/python3 /usr/bin/python
 #echo 'Download opencv ...'
 mkdir -p /opencv
 cd /opencv
@@ -67,9 +65,12 @@ rm 3.2.0.zip
 # Build opencv 
 #
 ####################################################################################
+
 echo 'Begin build opencv...'
-pip3 install numpy==1.12.0 
-ln -s /usr/bin/python3 /usr/bin/python
+
+# Install requierd numpy for opencv and fix numpy compilation
+ln -s /usr/include/locale.h /usr/include/xlocale.h
+pip3 install numpy==1.12.0
 
 # Begin build
 echo 'Begin build'

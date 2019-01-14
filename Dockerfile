@@ -1,4 +1,7 @@
+FROM node:8.15-alpine as node
 FROM alpine:3.5
+
+# This is the commit message #5:
 #===============
 # Set JAVA_HOME
 #===============
@@ -18,7 +21,7 @@ RUN set -xeo pipefail && \
     apk update && \
     apk add wget ca-certificates tini && \
     wget -O "/etc/apk/keys/sgerrand.rsa.pub" \
-      "https://raw.githubusercontent.com/andyshinn/alpine-pkg-glibc/master/sgerrand.rsa.pub" && \
+      "https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub" && \
     wget -O "/tmp/glibc.apk" \
       "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-2.23-r3.apk" && \
     wget -O "/tmp/glibc-bin.apk" \
@@ -30,37 +33,41 @@ RUN set -xeo pipefail && \
     rm -r /var/cache/apk/APKINDEX.* && \
     /usr/local/bin/update-platform-tools.sh
 
-# create fake ANDROIRD_HOME folder to pass appium path examination
-RUN mkdir -p /opt/build-tools
+# create fake build-tools folder and aapt to pass appium path examination
+RUN mkdir -p /opt/build-tools && touch /opt/aapt
 
 # Set up PATH
-ENV PATH $PATH:/opt/platform-tools:/opt/build-tools
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH "$PATH:${NPM_CONFIG_PREFIX}:${NPM_CONFIG_PREFIX}/bin:/opt/platform-tools:/opt/build-tools"
 ENV ANDROID_HOME '/opt/'
-
+RUN echo $PATH
 
 #====================================
-# Install nodejs, npm, appium
+# Set node directory
+# Install appium
+# need install python2 for appium installation
 #====================================
+COPY --from=node /usr/local/ /usr/local/
 WORKDIR /
-ARG APPIUM_VERSION=1.6.5
+ARG APPIUM_VERSION=1.10.0
 ENV APPIUM_VERSION=$APPIUM_VERSION
-
 RUN apk update && \
     apk add --no-cache openjdk8 && \
-    apk add --no-cache nodejs python3 gcc g++ make && \
-    npm install -g appium@${APPIUM_VERSION}
+    apk add --no-cache python python3 gcc g++ make && \
+    npm install -g appium@${APPIUM_VERSION} --unsafe-perm=true --allow-root --no-cache
+ 
+RUN apk del python
 
 # Set python path
 ENV PYBIN=/usr/bin/python3
-
-RUN echo 'PYBIN: '$PYBIN
+ENV PYTHON ${PYBIN}
+RUN echo 'PYBIN: $PYBIN '
 
 # Install packages for cffi
 RUN apk add --no-cache libffi-dev && \
     apk add --no-cache openssl-dev && \
     apk add --no-cache jpeg-dev && \
     apk add --no-cache musl-dev
-
 
 # Install python3 with lxml
 RUN python3 -m ensurepip && \
