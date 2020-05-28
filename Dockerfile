@@ -1,4 +1,5 @@
 FROM alpine:3.7
+ARG OPENCV_VER=3.4.1
 
 # Set up insecure default key
 RUN mkdir -m 0750 /root/.android
@@ -52,7 +53,7 @@ RUN apk add --no-cache python3 && \
     pip3 install --upgrade pip setuptools && \
     rm -r /root/.cache
 
-RUN /root/build-opencv.sh
+RUN /root/build-opencv.sh ${OPENCV_VER}
 RUN ln /dev/null /dev/raw1394
 
 ONBUILD RUN mkdir -p /code

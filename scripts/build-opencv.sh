@@ -7,7 +7,7 @@ set +e
 #
 ####################################################################################
 PYBIN=/usr/bin/python3
-
+CV_VERSION=${1:=-3.4.2}
 echo 'PWD  : '$PWD
 echo 'PYBIN: '$PYBIN
 
@@ -55,16 +55,16 @@ ln -s /usr/include/locale.h /usr/include/xlocale.h
 #echo 'Download opencv ...'
 mkdir -p /opencv
 cd /opencv
-wget https://github.com/opencv/opencv/archive/3.4.1.zip
-unzip 3.4.1.zip
-mv opencv-3.4.1 opencv
-rm 3.4.1.zip
+wget https://github.com/opencv/opencv/archive/$CV_VERSION.zip
+unzip $CV_VERSION.zip
+mv opencv-$CV_VERSION opencv
+rm $CV_VERSION.zip
 
 #echo 'Download opencv contrib...'
-wget https://github.com/opencv/opencv_contrib/archive/3.4.1.zip
-unzip 3.4.1.zip
-mv opencv_contrib-3.4.1 opencv_contrib
-rm 3.4.1.zip
+wget https://github.com/opencv/opencv_contrib/archive/$CV_VERSION.zip
+unzip $CV_VERSION.zip
+mv opencv_contrib-$CV_VERSION opencv_contrib
+rm $CV_VERSION.zip
 
 #####################################################################################
 #
