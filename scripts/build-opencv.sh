@@ -6,11 +6,11 @@ set +e
 # Build environment
 #
 ####################################################################################
-PYBIN=/usr/bin/python3
-CV_VERSION=${1:=-3.4.2}
+PYBIN=/usr/local/bin/python3
+CV_VERSION=${1:-3.4.2}
 echo 'PWD  : '$PWD
 echo 'PYBIN: '$PYBIN
-
+echo 'Target openCV version:' $CV_VERSION
 echo 'Install build dependencies'
 apk add --no-cache --virtual .build-deps \
   build-base \
@@ -34,7 +34,7 @@ apk add --no-cache \
   linux-headers \
   openblas-dev \
   tiff-dev \
-  python3-dev \
+  python3-dev
 
 echo 'Install ffmpeg dependencies'
 apk add --no-cache \
@@ -43,6 +43,7 @@ apk add --no-cache \
    ffmpeg-libs \
    ffmpeg-dev \
    ffmpeg \
+
 # fix for numpy compilation
 ln -s /usr/include/locale.h /usr/include/xlocale.h
 
@@ -73,7 +74,7 @@ rm $CV_VERSION.zip
 ####################################################################################
 echo 'Begin build opencv...'
 pip3 install numpy
-ln -s /usr/bin/python3 /usr/bin/python
+ln -s $PYBIN /usr/bin/python
 
 # Begin build
 echo 'Begin build'
@@ -98,11 +99,11 @@ echo 'Build for Py3'
 # Moving back to opencv-python
 cd ..
 
-#echo 'Copying *.so for Py3'
-cp opencv/build/lib/python3/cv2.cpython-36m-x86_64-linux-gnu.so /usr/lib/python3.6/site-packages/cv2.so
+echo 'Copying *.so for Py3'
+cp opencv/build/lib/python3/cv2.cpython-36m-x86_64-linux-gnu.so /usr/local/lib/python3.6/site-packages/cv2.so
 
 # Cleanup
-#echo 'Cleanup'
+echo 'Cleanup'
 rm -fr /opencv
 cd
 apk del --purge .build-deps

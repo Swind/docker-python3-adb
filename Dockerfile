@@ -1,5 +1,5 @@
-FROM alpine:3.7
-ARG OPENCV_VER=3.4.1
+FROM python:3.6.9-alpine3.9
+ARG OPENCV_VER=3.4.2
 
 # Set up insecure default key
 RUN mkdir -m 0750 /root/.android
@@ -19,7 +19,7 @@ RUN set -xeo pipefail && \
     apk update && \
     apk add wget ca-certificates tini && \
     wget -O "/etc/apk/keys/sgerrand.rsa.pub" \
-      "https://raw.githubusercontent.com/andyshinn/alpine-pkg-glibc/master/sgerrand.rsa.pub" && \
+    "https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub" && \
     wget -O "/tmp/glibc.apk" \
       "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-2.23-r3.apk" && \
     wget -O "/tmp/glibc-bin.apk" \
